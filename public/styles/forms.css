@@ -1,0 +1,6 @@
+input {
+  font-family: inherit;
+}
+input[type="password"] {
+  font-family: initial;
+}

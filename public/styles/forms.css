@@ -1,6 +1,38 @@
 input {
-  font-family: inherit;
+  font: inherit;
+  background-color: var(--color-purple-200);
+  padding: var(--space-2);
+  border-style: none;
+  width: 90%;
+  text-align: center;
+  border-radius: var(--border-radius-small);
+}
+input:focus {
+  outline-style: solid;
+  border: 1px solid var(--color-purple-400);
+  box-shadow: 0 0 6px var(--color-purple-500);
 }
 input[type="password"] {
   font-family: initial;
+}
+#form-switch a {
+  color: var(--color-gold-500);
+}
+#form-switch a:hover {
+  color: var(--color-gold-300);
+}
+h1 {
+  text-align: center;
+}
+form hr {
+  height: 1px;
+  background-color: var(--color-gold-300);
+  border: none;
+  width: 90%;
+}
+
+label {
+  color: var(--color-gold-300);
+  margin-bottom: var(--space-2);
+  display: block;
 }

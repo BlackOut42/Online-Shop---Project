@@ -1,23 +1,70 @@
 @font-face {
-    font-family: "manaspaceregular";
-    src: url("./fonts/manaSpace/manaspace.regular-webfont.woff2") format("woff2"),
-      url("./fonts/manaSpace/manaspace.regular-webfont.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: "manaspaceregular";
+  src: url("./fonts/manaSpace/manaspace.regular-webfont.woff2") format("woff2"),
+    url("./fonts/manaSpace/manaspace.regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 * {
   box-sizing: border-box;
 }
 
 html {
   font-family: "manaspaceregular";
+  --color-purple-700: #281c2d;
+  --color-purple-500: #8155ba;
+  --color-purple-400: #695e93;
+  --color-purple-200: #beafc2;
+  --color-plum-700: #400e32;
+  --color-plum-500: #a61f69;
+  --color-gold-500: #f2921d;
+  --color-gold-300: #f2cd5c;
+  --color-error-100: rgb(255, 200, 200);
+  --color-error-500: rgb(200, 15, 15);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --border-radius-small: 4px;
+  --border-radius-medium: 6px;
+
+  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+body {
+  background-color: var(--color-purple-700);
+  color: var(--color-gold-300);
+  margin: 0;
+}
+main{
+  width: 90%;
+  max-width: 50rem;
+  margin:0 auto;
+}
+
 #logo a {
-  text-decoration: none;
-  color: black;
+  display: inline-block;
   font-size: 3rem;
+  padding: var(--space-2) var(--space-1);
+}
+
+a{
+  color: var(--color-purple-200);
+  text-decoration: none;
 }
 .btn {
   font-family: "manaspaceregular";
+  cursor:pointer;
+  background-color: var(--color-purple-700);
+  color: var(--color-gold-500);
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--border-radius-small);
 }
-
+.btn:hover{
+  background-color: var(--color-plum-700);
+  color:var(--color-gold-300);
+}

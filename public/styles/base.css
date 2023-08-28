@@ -1,0 +1,23 @@
+@font-face {
+    font-family: "manaspaceregular";
+    src: url("./fonts/manaSpace/manaspace.regular-webfont.woff2") format("woff2"),
+      url("./fonts/manaSpace/manaspace.regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "manaspaceregular";
+}
+#logo a {
+  text-decoration: none;
+  color: black;
+  font-size: 3rem;
+}
+.btn {
+  font-family: "manaspaceregular";
+}
+

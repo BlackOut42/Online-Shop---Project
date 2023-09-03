@@ -21,5 +21,11 @@ class User {
       address: this.address,
     });
   }
+  getUserWithEmail() {
+    return db.getDb().collection("users").findOne({ email: this.email }); //async operation await is needed when called.
+  }
+  passwordIsMatching(hashedPassword) {
+    return bcrypt.compare(this.password, hashedPassword); //bcrypt.compare is an async operation, await is needed when using this function.
+  }
 }
 module.exports = User;

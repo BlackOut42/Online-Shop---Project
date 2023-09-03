@@ -5,8 +5,11 @@ const expressSession = require("express-session");
 
 const addCsrfMiddleware = require("./middleware/csrf-Token");//csrf addition middleware.
 const errorHandleMiddleware = require("./middleware/error-handler");//custom error handling middleware
+const authenticationMiddleware = require("./middleware/check-authentication");
 const createSessionConfig = require("./config/session-config"); // session config for authentication
 const authRoutes = require("./routes/auth-routes");
+const baseRoutes = require("./routes/base-routes");
+const productRoutes = require("./routes/product-routes");
 const db = require("./data/database");
 
 const app = express();
@@ -22,10 +25,13 @@ app.use(express.urlencoded({ extended: false }));
 const sessionConfig = createSessionConfig();
 app.use(expressSession(sessionConfig));//has to be before usage of csrf(below).
 app.use(csrf()); // has to be executed before redirection to routes(below)
-app.use(addCsrfMiddleware);
+app.use(addCsrfMiddleware);//Just to distribute generated tokens to all other routes/middlewares. 
 
+app.use(authenticationMiddleware);
 
+app.use(baseRoutes);
 app.use(authRoutes);
+app.use(productRoutes);
 
 app.use(errorHandleMiddleware);//last thing to use by express so we could catch all incoming errors.
 

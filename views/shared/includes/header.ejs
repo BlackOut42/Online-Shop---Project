@@ -1,4 +1,15 @@
 <header>
   <div id="logo"><a href="/">indieHaven</a></div>
-  <nav></nav>
+  <nav>
+    <% if(locals.isAuth){ %>
+    <ul>
+      <li>
+        <form action="/logout" method="post">
+          <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+          <button>Logout</button>
+        </form>
+      </li>
+    </ul>
+    <% } %>
+  </nav>
 </header>

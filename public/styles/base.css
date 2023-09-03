@@ -70,3 +70,20 @@ a{
   background-color: var(--color-plum-700);
   color:var(--color-gold-300);
 }
+
+.alert-error{
+  background-color: var(--color-error-100);
+  color:var(--color-error-500);
+  border-radius: var(--border-radius-small);
+  padding: var(--space-4);
+  text-align: center;
+}
+.alert-error h2{
+  font-size: 1.25rem;
+  margin: var(--space-2) 0;
+  text-transform: uppercase;
+  
+}
+.alert-error p{
+  margin: var(--space-2) 0;
+}

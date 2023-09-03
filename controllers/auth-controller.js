@@ -1,25 +1,56 @@
 const User = require("../models/user-model");
 const authUtil = require("../utilities/authentication-util");
 const userValidation = require("../utilities/validation");
+const flashToSession = require("../utilities/session-flash");
 
 function getSignup(req, res) {
-  res.render("customer/auth/signup");
+  let sessionData = flashToSession.getSessionData(req);
+  if (!sessionData) {
+    sessionData = {
+      email: "",
+      emailConfirm: "",
+      password: "",
+      fullname: "",
+      city: "",
+      street: "",
+      postal: "",
+    };
+  }
+  res.render("customer/auth/signup", { inputData: sessionData });
 }
 
 async function signup(req, res, next) {
   const userData = req.body;
+  const userInput = {
+    email: userData.email,
+    emailConfirm: userData["email-confirm"],
+    password: userData.password,
+    fullname: userData.fullname,
+    city: userData.city,
+    street: userData.street,
+    postal: userData.postal,
+  };
   if (
-    !userValidation.userDetailsAreValid ||
-    !userValidation.emailIsConfirmed(userData.email, userData["email-confirm"])(
+    !userValidation.userDetailsAreValid(
       userData.email,
       userData.password,
       userData.fullname,
       userData.city,
       userData.street,
       userData.postal
-    )
+    ) ||
+    !userValidation.emailIsConfirmed(userData.email, userData["email-confirm"])
   ) {
-    res.redirect("/signup");
+    flashToSession.flashDataToSession(
+      req,
+      {
+        errorMessage: "Check your input - Some of the credentials are invalid!",
+        ...userInput,
+      },
+      function () {
+        res.redirect("/signup");
+      }
+    );
     return;
   }
   const user = new User(
@@ -33,7 +64,16 @@ async function signup(req, res, next) {
   try {
     const existsAlready = user.existsAlready();
     if (existsAlready) {
-      res.redirect("/signup");
+      flashToSession.flashDataToSession(
+        req,
+        {
+          errorMessage: "User exists already!try logging in instead!",
+          ...userInput,
+        },
+        function () {
+          res.redirect("/signup");
+        }
+      );
       return;
     }
     await user.signup();
@@ -43,12 +83,22 @@ async function signup(req, res, next) {
   }
   res.redirect("/login");
 }
+
 function getLogin(req, res) {
-  res.render("customer/auth/login");
+  let sessionData = flashToSession.getSessionData(req);
+
+  if (!sessionData) {
+    sessionData = {
+      email: "",
+      password: "",
+    };
+  }
+  res.render("customer/auth/login", { inputData: sessionData });
 }
 
 async function login(req, res, next) {
   const user = new User(req.body.email, req.body.password);
+  let hasError = false;
   let existingUser;
   try {
     existingUser = await user.getUserWithEmail(); //await is needed due to async operation.
@@ -57,13 +107,29 @@ async function login(req, res, next) {
     return;
   }
   if (!existingUser) {
-    return res.redirect("/login");
+    hasError = true;
   }
-  const passwordIsMatching = await user.passwordIsMatching(
-    existingUser.password
-  );
-  if (!passwordIsMatching) {
-    res.redirect("/login");
+  if (!hasError) {
+    const passwordIsMatching = await user.passwordIsMatching(
+      existingUser.password
+    );
+    if (!passwordIsMatching) {
+      hasError = true;
+    }
+  }
+  if (hasError) {
+    flashToSession.flashDataToSession(
+      req,
+      {
+        errorMessage:
+          "Invalid credentials! - Please check the email & password you have provided.",
+        email: user.email,
+        password: user.password,
+      },
+      function () {
+        res.redirect("/login");
+      }
+    );
     return;
   }
   authUtil.createUserSession(req, existingUser, function () {

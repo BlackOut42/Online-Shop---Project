@@ -7,15 +7,21 @@
         <%- include("../../shared/includes/header") %>
         <main>
             <h1>Login</h1>
+            <% if(inputData.errorMessage){ %>
+                <section class="alert-error">
+                    <h2>Invalid Input!</h2>
+                    <p><%=inputData.errorMessage%></p>
+                </section>
+            <% } %>
             <form action="/login" method="post">
                 <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">                    
                     <p>
                         <label for="email">E-Mail</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" value="<%= inputData.email %>" required>
                     </p>
                     <p>
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" minlength="6" required>
+                        <input type="password" id="password" name="password" value="<%= inputData.password %>" minlength="6" required>
                     </p>
                 <button class="btn">Login</button>
                 <p id="form-switch"><a href="/signup">Don't have an account?</a></p>

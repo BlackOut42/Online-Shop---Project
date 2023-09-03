@@ -24,6 +24,13 @@ class User {
   getUserWithEmail() {
     return db.getDb().collection("users").findOne({ email: this.email }); //async operation await is needed when called.
   }
+  async existsAlready() {
+    const existingUser = await this.getUserWithEmail();
+    if (existingUser) {
+      return true;
+    }
+    return false;
+  }
   passwordIsMatching(hashedPassword) {
     return bcrypt.compare(this.password, hashedPassword); //bcrypt.compare is an async operation, await is needed when using this function.
   }

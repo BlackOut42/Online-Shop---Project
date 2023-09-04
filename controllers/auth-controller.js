@@ -62,7 +62,7 @@ async function signup(req, res, next) {
     userData.postal
   );
   try {
-    const existsAlready = user.existsAlready();
+    const existsAlready = await user.existsAlready();
     if (existsAlready) {
       flashToSession.flashDataToSession(
         req,

@@ -1,4 +1,5 @@
-input {
+input,
+textarea {
   font: inherit;
   background-color: var(--color-purple-200);
   padding: var(--space-2);
@@ -8,12 +9,20 @@ input {
   border-radius: var(--border-radius-small);
 }
 input:focus {
-   outline-style: none;
+  outline-style: none;
   background-color: var(--color-purple-100);
 }
 input[type="password"] {
   font-family: initial;
 }
+input.bg-transparent {
+  background-color: transparent;
+}
+.default-text-form input,
+.default-text-form textarea {
+  text-align: left;
+}
+
 #form-switch a {
   color: var(--color-gold-500);
 }

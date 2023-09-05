@@ -10,6 +10,7 @@ const createSessionConfig = require("./config/session-config"); // session confi
 const authRoutes = require("./routes/auth-routes");
 const baseRoutes = require("./routes/base-routes");
 const productRoutes = require("./routes/product-routes");
+const adminRoutes = require("./routes/admin-routes");
 const db = require("./data/database");
 
 const app = express();
@@ -32,6 +33,8 @@ app.use(authenticationMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
+app.use("/admin",adminRoutes); //filtering routes that start with /admin 
+
 
 app.use(errorHandleMiddleware);//last thing to use by express so we could catch all incoming errors.
 

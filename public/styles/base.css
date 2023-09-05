@@ -12,15 +12,20 @@
 html {
   font-family: "manaspaceregular";
   --color-purple-700: #281c2d;
+  --color-purple-600: #432e4c;
+  --color-purple-550: #60466b;
   --color-purple-500: #8155ba;
   --color-purple-400: #695e93;
   --color-purple-200: #beafc2;
   --color-purple-100: #d8cddb;
 
   --color-plum-700: #400e32;
+  --color-plum-600: #812767;
   --color-plum-500: #a61f69;
-  --color-gold-500: #f2921d;
+  --color-gold-500: #efa447;
   --color-gold-300: #f2cd5c;
+  --color-gold-100: #fee59c;
+
   --color-error-100: rgb(255, 200, 200);
   --color-error-500: rgb(200, 15, 15);
 
@@ -42,48 +47,57 @@ body {
   color: var(--color-gold-300);
   margin: 0;
 }
-main{
+main {
   width: 90%;
   max-width: 50rem;
-  margin:0 auto;
+  margin: 0 auto;
 }
-
-#logo a {
-  display: inline-block;
-  font-size: 3rem;
-  padding: var(--space-2) var(--space-1);
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-
-a{
-  color: var(--color-purple-200);
+a {
+  color: var(--color-gold-300);
   text-decoration: none;
+}
+a:hover {
+  color: var(--color-gold-500);
 }
 .btn {
   font-family: "manaspaceregular";
-  cursor:pointer;
+  cursor: pointer;
   background-color: var(--color-purple-700);
   color: var(--color-gold-500);
   padding: var(--space-2) var(--space-6);
   border-radius: var(--border-radius-small);
+  border: 1px solid var(--color-purple-500);
 }
-.btn:hover{
+.btn:hover {
+  background-color: var(--color-purple-600);
+  color: var(--color-gold-300);
+}
+.btn-alt {
   background-color: var(--color-plum-700);
-  color:var(--color-gold-300);
+}
+.btn-alt:hover,
+.btn-alt:active {
+  background-color: var(--color-plum-600);
 }
 
-.alert-error{
+.alert-error {
   background-color: var(--color-error-100);
-  color:var(--color-error-500);
+  color: var(--color-error-500);
   border-radius: var(--border-radius-small);
   padding: var(--space-4);
   text-align: center;
 }
-.alert-error h2{
+.alert-error h2 {
   font-size: 1.25rem;
   margin: var(--space-2) 0;
   text-transform: uppercase;
-  
 }
-.alert-error p{
+.alert-error p {
   margin: var(--space-2) 0;
 }

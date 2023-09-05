@@ -1,0 +1,133 @@
+/* mobile styles */
+main {
+  margin-top: 6rem;
+}
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 75rem;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-purple-600);
+  border-bottom: 1px solid var(--color-purple-500);
+}
+#main-header nav {
+  display: none;
+}
+
+#logo a {
+  font-size: 2.75rem;
+  color: var(--color-gold-300);
+  padding: var(--space-2) var(--space-1);
+}
+#logo:hover a {
+  color: var(--color-gold-500);
+}
+.nav-items {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.nav-items a {
+  padding: var(--space-2) var(--space-4);
+}
+.nav-items li {
+  margin: 0 var(--space-2);
+  font-size: 1.25rem;
+}
+.nav-items button{
+    cursor: pointer;
+    font: inherit;
+    border: 1px solid var(--color-purple-500);
+    border-radius: var(--border-radius-small);
+    background-color: transparent;
+    padding: var(--space-2) var(--space-4);
+    color:var(--color-gold-300);
+}
+.nav-items button:hover{
+    background-color: var(--color-purple-550);
+}
+#burger-btn {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  height: 3rem;
+  width: 3rem;
+  justify-content: space-around;
+  background-color: transparent;
+  cursor: pointer;
+}
+#burger-btn span {
+  width: 2.5rem;
+  height: 0.3rem;
+  background-color: var(--color-gold-100);
+}
+#burger-btn:hover span,
+#burger-btn:active span {
+  background-color: var(--color-gold-300);
+}
+#mobile-menu {
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  height: calc(100vh - 5rem);
+  width: 100%;
+  background-color: var(--color-purple-700);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+#mobile-menu.open{ /*Class used in toggle function on click of hamburger btn*/
+    display: flex;
+}
+#mobile-menu nav {
+  height: 20rem;
+  width: 90%;
+  margin: var(--space-4) auto;
+}
+#mobile-menu .nav-items a,
+#mobile-menu .nav-items button {
+  font-size: 1.75rem;
+  color: var(--color-gold-300);
+}
+#mobile-menu .nav-items a:hover,
+#mobile-menu .nav-items button:active{
+    color: var(--color-gold-500);
+}
+
+
+/* PC media query
+ */
+@media (min-width: 48rem) {
+  main {
+    margin-top: 0;
+  }
+  #logo a {
+    font-size: 3rem;
+  }
+  #main-header {
+    position: static;
+  }
+  #main-header nav {
+    display: block;
+  }
+  .nav-items {
+    margin: 0 var(--space-6);
+    flex-direction: row;
+  }
+
+  #burger-btn {
+    display: none;
+  }
+  #mobile-menu {
+    display: none;
+  }
+}

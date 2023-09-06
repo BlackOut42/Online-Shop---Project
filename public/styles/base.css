@@ -61,9 +61,11 @@ ol {
 a {
   color: var(--color-gold-300);
   text-decoration: none;
+  border-radius: var(--border-radius-small);
 }
 a:hover {
   color: var(--color-gold-500);
+  background-color: var(--color-purple-550);
 }
 .btn {
   font-family: "manaspaceregular";

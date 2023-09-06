@@ -7,3 +7,6 @@ form{
     border-radius: var(--border-radius-medium);
     
   }
+  form a:hover{
+    background-color: transparent;
+  }

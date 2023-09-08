@@ -21,6 +21,7 @@ app.set("views", path.join(__dirname, "views")); // setting views path
 const port = 3000;
 
 app.use(express.static("public")); // serving staticly the resources available for public.
+app.use("/products/assets",express.static("product-data"));//serving product related data staticly.
 app.use(express.urlencoded({ extended: false }));
 
 const sessionConfig = createSessionConfig();

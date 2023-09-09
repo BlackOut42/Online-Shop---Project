@@ -44,3 +44,16 @@ label {
   margin-bottom: var(--space-2);
   display: block;
 }
+#image-upload-control{
+  display: flex;
+
+}
+#image-upload-control input{
+  max-width: 20rem;
+}
+#image-upload-control img{
+  width: 5rem;
+  height: 5rem;
+  object-fit: scale-down;
+  display:none;
+}

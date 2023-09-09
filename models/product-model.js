@@ -20,26 +20,32 @@ class Product {
       description: this.description,
       image: this.image,
     };
-    if(this.id){
+    if (this.id) {
       const productIdObject = await new mongodb.ObjectId(this.id);
-      if(!this.image){  //So I won't overwrite the existing image in case I don't want a new image to be set.  
+      if (!this.image) {
+        //So I won't overwrite the existing image in case I don't want a new image to be set.
         delete productData.image;
-        
       }
-      await db.getDb().collection("products").updateOne({_id:productIdObject} ,{$set:{
-            ...productData
-      }});
-    }
-    else{
-
+      await db
+        .getDb()
+        .collection("products")
+        .updateOne(
+          { _id: productIdObject },
+          {
+            $set: {
+              ...productData,
+            },
+          }
+        );
+    } else {
       await db.getDb().collection("products").insertOne(productData);
     }
   }
-  updateImage(){
+  updateImage() {
     this.imagePath = `product-data/images/${this.image}`;
     this.imageURL = `/products/assets/images/${this.image}`;
   }
-  async replaceImage(newImage){
+  async replaceImage(newImage) {
     this.image = newImage;
     this.updateImage();
   }
@@ -62,13 +68,20 @@ class Product {
       .getDb()
       .collection("products")
       .findOne({ _id: prodIdObject });
-    
-    if(!product){
+
+    if (!product) {
       const error = new Error("Could not find a product with provided id");
       error.code = 404;
       throw error;
     }
     return new Product(product);
+  }
+  delete() {
+    const productIdObject = new mongodb.ObjectId(this.id);
+    return db
+      .getDb()
+      .collection("products")
+      .deleteOne({ _id: productIdObject });//returns a promise and can fail error handling needed + await.
   }
 }
 module.exports = Product;

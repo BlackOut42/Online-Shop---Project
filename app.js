@@ -6,6 +6,7 @@ const expressSession = require("express-session");
 const addCsrfMiddleware = require("./middleware/csrf-Token");//csrf addition middleware.
 const errorHandleMiddleware = require("./middleware/error-handler");//custom error handling middleware
 const authenticationMiddleware = require("./middleware/check-authentication");
+const protectRoutesMiddleware = require("./middleware/protect-routes");
 const createSessionConfig = require("./config/session-config"); // session config for authentication
 const authRoutes = require("./routes/auth-routes");
 const baseRoutes = require("./routes/base-routes");
@@ -34,6 +35,7 @@ app.use(authenticationMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
+app.use(protectRoutesMiddleware);//protecting access to path below.
 app.use("/admin",adminRoutes); //filtering routes that start with /admin 
 
 

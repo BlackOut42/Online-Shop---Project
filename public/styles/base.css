@@ -103,3 +103,15 @@ a:hover {
 .alert-error p {
   margin: var(--space-2) 0;
 }
+
+.badge{
+  position: relative;
+  bottom: 0.20rem;
+  right: var(--space-2);
+  padding: 0.2rem var(--space-4);
+  border-radius: 50rem;
+  background-color: var(--color-plum-600);
+  color:var(--color-gold-300);
+  font-size: 0.75rem;
+
+}

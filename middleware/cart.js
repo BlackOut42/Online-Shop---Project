@@ -9,7 +9,7 @@ function initializeCart(req, res, next) {
   if (!sessionCart) {
     cart = new Cart();
   } else {
-    cart = new Cart(sessionCart.items,sessionCart.totalQuantit,sessionCart.totalPrice);
+    cart = new Cart(sessionCart.items,sessionCart.totalQuantity,sessionCart.totalPrice);
   }
   res.locals.cart = cart;
   next();

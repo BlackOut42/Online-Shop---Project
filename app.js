@@ -13,6 +13,7 @@ const authRoutes = require("./routes/auth-routes");
 const baseRoutes = require("./routes/base-routes");
 const productRoutes = require("./routes/product-routes");
 const adminRoutes = require("./routes/admin-routes");
+const cartRoutes = require("./routes/cart-routes");
 const db = require("./data/database");
 
 const app = express();
@@ -25,6 +26,7 @@ const port = 3000;
 app.use(express.static("public")); // serving staticly the resources available for public.
 app.use("/products/assets",express.static("product-data"));//serving product related data staticly.
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());//middlewware made for ajax requests with data attached to them.
 
 const sessionConfig = createSessionConfig();
 app.use(expressSession(sessionConfig));//has to be before usage of csrf(below).
@@ -39,6 +41,7 @@ app.use(authenticationMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
+app.use("/cart",cartRoutes);
 app.use(protectRoutesMiddleware);//protecting access to path below.
 app.use("/admin",adminRoutes); //filtering routes that start with /admin 
 

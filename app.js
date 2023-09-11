@@ -7,6 +7,7 @@ const addCsrfMiddleware = require("./middleware/csrf-Token");//csrf addition mid
 const errorHandleMiddleware = require("./middleware/error-handler");//custom error handling middleware
 const authenticationMiddleware = require("./middleware/check-authentication");
 const protectRoutesMiddleware = require("./middleware/protect-routes");
+const cartMiddleWare = require("./middleware/cart");
 const createSessionConfig = require("./config/session-config"); // session config for authentication
 const authRoutes = require("./routes/auth-routes");
 const baseRoutes = require("./routes/base-routes");
@@ -29,6 +30,9 @@ const sessionConfig = createSessionConfig();
 app.use(expressSession(sessionConfig));//has to be before usage of csrf(below).
 app.use(csrf()); // has to be executed before redirection to routes(below)
 app.use(addCsrfMiddleware);//Just to distribute generated tokens to all other routes/middlewares. 
+
+app.use(cartMiddleWare);//created a local Cart item which contains methods 
+                        //unlike the object in the session who contains only the items.
 
 app.use(authenticationMiddleware);
 

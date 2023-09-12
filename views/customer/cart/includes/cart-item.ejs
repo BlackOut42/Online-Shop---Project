@@ -1,0 +1,12 @@
+<article class="cart-item">
+    <div class="cart-item-info">
+        <h2><%= cartItem.product.title%></h2>
+        <img src="<%= cartItem.product.imageURL %>" alt="<%= cartItem.product.title %>">
+        <p>Per Unit: <%= cartItem.product.price %> Credits</p>
+    </div>
+    <div class="cart-item-management">
+        <input type="number" value="<%= cartItem.quantity %>" min="0" required >
+        <p>Unit total: <%= cartItem.totalPrice %> Credits</p>
+        <button class="btn btn-alt" data-productid="<%= cartItem.product.id %>">Update Unit</button>
+    </div>
+</article>

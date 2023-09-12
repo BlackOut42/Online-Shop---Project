@@ -53,7 +53,7 @@ class Product {
     const productArr = await db.getDb().collection("products").find().toArray();
     const mappedProductArr = productArr.map(function (productDoc) {
       return (productDoc = new Product(productDoc)); // replacing each document I got from the database
-    }); // with a Product object I can use.
+    });                                             // with a Product object I can use.
     return mappedProductArr;
   }
   static async findById(productId) {

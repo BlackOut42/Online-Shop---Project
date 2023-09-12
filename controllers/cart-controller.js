@@ -10,7 +10,7 @@ async function addCartItem(req, res, next) {
   }
   const cart = res.locals.cart;
   cart.addItem(product); //updating local Cart object.
-  
+
   req.session.cart = cart; //overwrite session cart with the updated cart.
 
   res.json({
@@ -18,7 +18,11 @@ async function addCartItem(req, res, next) {
     totalItems: cart.totalQuantity,
   });
 }
+function getCart(req, res) {
+  res.render("customer/cart/cart");
+}
 
 module.exports = {
   addCartItem: addCartItem,
+  getCart: getCart,
 };

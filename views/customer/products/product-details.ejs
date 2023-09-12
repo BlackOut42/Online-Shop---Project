@@ -9,7 +9,7 @@
                 <img src="<%= product.imageURL %>" alt="<%= product.title %>">
                 <div id="product-information">
                     <h1><%= product.title %></h1>
-                    <p id="price">Price: <%= product.price %> Credits</p>
+                    <p id="price">Price: <%= product.price.toFixed(2) %> Credits</p>
                     <button class="btn btn-alt" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
                 </div>
             </header>

@@ -1,5 +1,6 @@
 <%- include("../../shared/includes/head",{pageTitle:"Shopping Cart"}) %>
 <link rel="stylesheet" href="/styles/cart.css">
+<script src="/scripts/cart-item-management.js" defer></script>
 </head>
     <body>
         <%- include("../../shared/includes/header") %>
@@ -13,9 +14,12 @@
                 <% } %>
             </ul>
             <div id="cart-total">
-             <p>Total:<%= locals.cart.totalPrice %> Credits </p>   
+             <p>Total:</p>
+             <span><%= locals.cart.totalPrice.toFixed(2) %> Credits</span>
+             <div>
+                 <button class="btn">Confirm Purchase</button>
+             </div>   
             </div>
-
         </main>
     </body>
 </html>

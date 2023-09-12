@@ -22,7 +22,27 @@ function getCart(req, res) {
   res.render("customer/cart/cart");
 }
 
+function updateCartItem(req, res) {
+  const cart = res.locals.cart;
+  const updatedItemPrice = cart.updateItem(
+    req.body.productId,
+    +req.body.quantity
+  );
+
+  req.session.cart = cart;
+  res.json({
+    message: "Cart updated!",
+    updatedCartData: {
+      newTotalQuantity: cart.totalQuantity,
+      newTotalPrice: cart.totalPrice,
+      newItemPrice: updatedItemPrice.itemTotalPrice,
+    },
+  });
+}
+
+
 module.exports = {
   addCartItem: addCartItem,
   getCart: getCart,
+  updateCartItem: updateCartItem,
 };

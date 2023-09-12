@@ -52,6 +52,9 @@ main {
   max-width: 50rem;
   margin: 0 auto;
 }
+h1{
+  text-align: center;
+}
 ul,
 ol {
   list-style: none;

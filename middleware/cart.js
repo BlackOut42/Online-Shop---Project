@@ -9,9 +9,16 @@ function initializeCart(req, res, next) {
   if (!sessionCart) {
     cart = new Cart();
   } else {
-    cart = new Cart(sessionCart.items,sessionCart.totalQuantity,sessionCart.totalPrice);
+    cart = new Cart(
+      sessionCart.items,
+      sessionCart.totalQuantity,
+      sessionCart.totalPrice
+    );
   }
   res.locals.cart = cart;
+  if (req.session.uid) {
+    res.locals.credit = req.session.inventory.credit; //adding this for credit in views
+  }
   next();
 }
 

@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 const db = require("../data/database");
+const Inventory = require("./Inventory-model");
 
 class User {
   constructor(email, password, fullname, city, street, postal) {
@@ -15,11 +16,18 @@ class User {
   }
   async signup() {
     const hashedPassword = await bcrypt.hash(this.password, 12); // hashing the password
-    await db.getDb().collection("users").insertOne({
+    const response = await db.getDb().collection("users").insertOne({
       email: this.email,
       password: hashedPassword,
       address: this.address,
     });
+    await db
+      .getDb()
+      .collection("users")
+      .updateOne(
+        { _id: response.insertedId },
+        { $set: { inventory: new Inventory(response.insertedId) } }
+      );
   }
   getUserWithEmail() {
     return db.getDb().collection("users").findOne({ email: this.email }); //async operation await is needed when called.

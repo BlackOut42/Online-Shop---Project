@@ -1,11 +1,15 @@
 <%- include("../../shared/includes/head",{pageTitle:"Shopping Cart"}) %>
 <link rel="stylesheet" href="/styles/cart.css">
+<link rel="stylesheet" href="/styles/inventory.css">
 <script src="/scripts/cart-item-management.js" defer></script>
 </head>
     <body>
         <%- include("../../shared/includes/header") %>
         <main>
             <h1>Your Cart</h1>
+            <% if(locals.isAuth){ %>
+                <%- include("../../shared/includes/inventory/credit-balance",{total:false}) %>
+                <% } %>
             <ul id="cart-items">
                 <% for(const cartItem of locals.cart.items ){ %>
                 <li>
@@ -16,10 +20,21 @@
             <div id="cart-total">
              <p>Total:</p>
              <span><%= locals.cart.totalPrice.toFixed(2) %> Credits</span>
-             <div>
-                 <button class="btn">Confirm Purchase</button>
-             </div>   
+             <% if(locals.isAuth){ %>
+                <form action="/inventory/add" method="post">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>" />
+                    <button class="btn">Confirm Purchase</button>
+                </form>
+                
+             <% }else{%>
+                <p id="cart-total-noAuth">Log in to confirm purchase</p>
+             <% } %>
             </div>
+            <% if(locals.isAuth){ %>
+            <div id="cart-total-balance">
+                <%- include("../../shared/includes/inventory/credit-balance",{total:true}) %>   
+            </div>
+            <% } %>
         </main>
     </body>
 </html>

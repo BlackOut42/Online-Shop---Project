@@ -75,6 +75,15 @@
   font-size: inherit;
 }
 
+#cart-total #cart-total-noAuth{
+  font-size: 1rem;
+}
+#cart-total-balance hr{
+  height: 1px;
+  background-color: var(--color-purple-400);
+  border: none;
+  width: 100%;
+}
 @media (min-width: 48rem) {
   .cart-item {
     flex-direction: row;

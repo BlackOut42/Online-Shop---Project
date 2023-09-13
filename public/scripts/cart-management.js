@@ -1,6 +1,7 @@
 const addToCartButtonElement = document.querySelector("#product-information button");
 const cartBadgeElement = document.querySelector(".nav-items .badge");
 
+
 async function addToCart() {
   const productId = addToCartButtonElement.dataset.productid;
   const csrfToken = addToCartButtonElement.dataset.csrf; //This is a must, request won't go through without it!
@@ -29,9 +30,9 @@ async function addToCart() {
   const responseData = await response.json();
 
   const newTotalQuantity = responseData.totalItems;
-
-  console.log(newTotalQuantity);
+  
   cartBadgeElement.textContent = newTotalQuantity;
+  
 }
 
 addToCartButtonElement.addEventListener("click", addToCart);

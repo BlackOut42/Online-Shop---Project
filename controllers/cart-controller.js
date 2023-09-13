@@ -36,6 +36,7 @@ function updateCartItem(req, res) {
       newTotalQuantity: cart.totalQuantity,
       newTotalPrice: cart.totalPrice,
       newItemPrice: updatedItemPrice.itemTotalPrice,
+      newTotalBalance: req.session.inventory.credit - updatedItemPrice.itemTotalPrice,
     },
   });
 }

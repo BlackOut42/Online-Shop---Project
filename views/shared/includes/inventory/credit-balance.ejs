@@ -1,0 +1,14 @@
+<div class="credit-info">
+  <p>Balance:</p>
+  <span class="credit-balance"> <%= locals.credit %> Credits</span>
+  <div class="spacer"></div>
+</div>
+<% if(total){ %>
+    <hr>
+  <div class="credit-info">
+      <p>Balance after:</p>
+      <span id="credit-balance-after" class="credit-balance">
+      <%= (locals.credit - locals.cart.totalPrice).toFixed(2) %> Credits</span>
+      <div class="spacer"></div>
+  </div>                                                                                              
+<% } %>

@@ -1,6 +1,11 @@
-const cartItemUpdateFormElements = document.querySelectorAll(".cart-item-management form");
+const cartItemUpdateFormElements = document.querySelectorAll(
+  ".cart-item-management form"
+);
 const cartBadgeElement = document.querySelectorAll(".nav-items .badge"); // there are 2 badges on each page Mobile & Desktop menu
 const totalCartPriceElement = document.querySelector("#cart-total span");
+const creditBalanceAfterElement = document.getElementById(
+  "credit-balance-after"
+);
 
 async function updateCartItem(event) {
   event.preventDefault();
@@ -32,15 +37,24 @@ async function updateCartItem(event) {
     return;
   }
   const responseData = await response.json();
-  if(responseData.updatedCartData.newItemPrice === 0){
+  if (responseData.updatedCartData.newItemPrice === 0) {
     const cartItemElement = form.parentElement.parentElement.parentElement;
     cartItemElement.remove();
-  }else{
-      const totalItemPriceElement = form.parentElement.querySelector(".cart-item-price");
-      totalItemPriceElement.textContent = responseData.updatedCartData.newItemPrice.toFixed(2);
+  } else {
+    const totalItemPriceElement =
+      form.parentElement.querySelector(".cart-item-price");
+    totalItemPriceElement.textContent =
+      responseData.updatedCartData.newItemPrice.toFixed(2);
   }
+  const newTotalPrice = responseData.updatedCartData.newTotalPrice;
+  const newTotalBalance = responseData.updatedCartData.newTotalBalance;
 
-  totalCartPriceElement.textContent = responseData.updatedCartData.newTotalPrice.toFixed(2) + " Credits";
+  totalCartPriceElement.textContent = newTotalPrice.toFixed(2) + " Credits";
+  if (creditBalanceAfterElement) {
+
+    creditBalanceAfterElement.textContent =
+      newTotalBalance.toFixed(2) + " Credits";
+  }
 
   for (const badge of cartBadgeElement) {
     badge.textContent = responseData.updatedCartData.newTotalQuantity;

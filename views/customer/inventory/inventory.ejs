@@ -1,0 +1,21 @@
+<%- include("../../shared/includes/head",{pageTitle:"Inventory"}) %>
+<link rel="stylesheet" href="/styles/products.css">
+<link rel="stylesheet" href="/styles/inventory.css">
+</head>
+    <body>
+        <%- include("../../shared/includes/header") %>
+        <main>
+            <h1>Inventory</h1>
+            <%- include("../../shared/includes/inventory/credit-balance",{total:false}) %>
+            <section>
+                <ul id="products-grid">
+                    <% for (const inventoryItem of inventory.items) { %>
+                        <li>
+                            <%- include("../../shared/includes/products/product-item",{product:inventoryItem.product}) %>
+                        </li>
+                    <% } %>
+                </ul>
+            </section>
+        </main>
+    </body>
+</html>

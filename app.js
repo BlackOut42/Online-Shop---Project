@@ -14,6 +14,8 @@ const baseRoutes = require("./routes/base-routes");
 const productRoutes = require("./routes/product-routes");
 const adminRoutes = require("./routes/admin-routes");
 const cartRoutes = require("./routes/cart-routes");
+const inventoryRoutes = require("./routes/inventory-routes");
+
 const db = require("./data/database");
 
 const app = express();
@@ -43,6 +45,7 @@ app.use(authRoutes);
 app.use(productRoutes);
 app.use("/cart",cartRoutes);
 app.use(protectRoutesMiddleware);//protecting access to path below.
+app.use("/inventory",inventoryRoutes);
 app.use("/admin",adminRoutes); //filtering routes that start with /admin 
 
 

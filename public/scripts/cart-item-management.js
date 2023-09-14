@@ -31,7 +31,6 @@ async function updateCartItem(event) {
     return;
   }
   if (!response.ok) {
-    console.log(response);
     return;
   }
   const responseData = await response.json();
@@ -48,7 +47,6 @@ async function updateCartItem(event) {
   const newTotalBalance = responseData.updatedCartData.newTotalBalance;
 
   totalCartPriceElement.textContent = newTotalPrice.toFixed(2) + " Credits";
-  console.log(creditBalanceAfterElement);
   if (creditBalanceAfterElement) {
     creditBalanceAfterElement.textContent =
       newTotalBalance.toFixed(2) + " Credits";

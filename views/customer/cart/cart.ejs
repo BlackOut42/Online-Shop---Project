@@ -7,6 +7,12 @@
         <%- include("../../shared/includes/header") %>
         <main>
             <h1>Your Cart</h1>
+            <% if(sessionData.errorMessage){ %>
+                <section class="alert-error">
+                    <h2>Insuficient funds!</h2>
+                    <p><%=sessionData.errorMessage%></p>
+                </section>
+            <% } %>
             <% if(locals.isAuth){ %>
                 <%- include("../../shared/includes/inventory/credit-balance",{total:false}) %>
                 <% } %>
@@ -18,7 +24,7 @@
                 <% } %>
             </ul>
             <div id="cart-total">
-             <p>Total:</p>
+             <p>Cart Total:</p>
              <span><%= locals.cart.totalPrice.toFixed(2) %> Credits</span>
              <div class="spacer"></div>
              <% if(!locals.isAuth){%>

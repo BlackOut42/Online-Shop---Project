@@ -11,7 +11,7 @@
                 <ul id="products-grid">
                     <% for (const inventoryItem of inventory.items) { %>
                         <li>
-                            <%- include("../../shared/includes/products/product-item",{product:inventoryItem.product}) %>
+                            <%- include("../../shared/includes/inventory/inventory-item",{inventoryItem:inventoryItem}) %>
                         </li>
                     <% } %>
                 </ul>

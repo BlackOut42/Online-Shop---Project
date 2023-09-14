@@ -8,6 +8,7 @@ const errorHandleMiddleware = require("./middleware/error-handler");//custom err
 const authenticationMiddleware = require("./middleware/check-authentication");
 const protectRoutesMiddleware = require("./middleware/protect-routes");
 const cartMiddleWare = require("./middleware/cart");
+const notFoundMiddleWare =require('./middleware/not-found');
 const createSessionConfig = require("./config/session-config"); // session config for authentication
 const authRoutes = require("./routes/auth-routes");
 const baseRoutes = require("./routes/base-routes");
@@ -44,10 +45,9 @@ app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
 app.use("/cart",cartRoutes);
-app.use(protectRoutesMiddleware);//protecting access to path below.
-app.use("/inventory",inventoryRoutes);
-app.use("/admin",adminRoutes); //filtering routes that start with /admin 
-
+app.use("/inventory",protectRoutesMiddleware,inventoryRoutes);
+app.use("/admin",protectRoutesMiddleware,adminRoutes); //filtering routes that start with /admin 
+app.use(notFoundMiddleWare);
 
 app.use(errorHandleMiddleware);//last thing to use by express so we could catch all incoming errors.
 

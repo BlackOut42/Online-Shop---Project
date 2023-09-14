@@ -1,4 +1,5 @@
 const Product = require("../models/product-model");
+const sessionFlash = require("../utilities/session-flash");
 
 async function addCartItem(req, res, next) {
   let product;
@@ -18,8 +19,13 @@ async function addCartItem(req, res, next) {
     totalItems: cart.totalQuantity,
   });
 }
+
 function getCart(req, res) {
-  res.render("customer/cart/cart");
+  let sessionData = sessionFlash.getSessionData(req);
+  if (!sessionData) {
+    sessionData = {};
+  }
+  res.render("customer/cart/cart", { sessionData: sessionData });
 }
 
 function updateCartItem(req, res) {
@@ -36,11 +42,11 @@ function updateCartItem(req, res) {
       newTotalQuantity: cart.totalQuantity,
       newTotalPrice: cart.totalPrice,
       newItemPrice: updatedItemPrice.itemTotalPrice,
-      newTotalBalance: req.session.inventory.credit - updatedItemPrice.itemTotalPrice,
+      newTotalBalance:
+        req.session.inventory.credit - cart.totalPrice,
     },
   });
 }
-
 
 module.exports = {
   addCartItem: addCartItem,

@@ -3,9 +3,7 @@ const cartItemUpdateFormElements = document.querySelectorAll(
 );
 const cartBadgeElement = document.querySelectorAll(".nav-items .badge"); // there are 2 badges on each page Mobile & Desktop menu
 const totalCartPriceElement = document.querySelector("#cart-total span");
-const creditBalanceAfterElement = document.getElementById(
-  "credit-balance-after"
-);
+const creditBalanceAfterElement = document.getElementById("credit-balance-after");
 
 async function updateCartItem(event) {
   event.preventDefault();
@@ -50,8 +48,8 @@ async function updateCartItem(event) {
   const newTotalBalance = responseData.updatedCartData.newTotalBalance;
 
   totalCartPriceElement.textContent = newTotalPrice.toFixed(2) + " Credits";
+  console.log(creditBalanceAfterElement);
   if (creditBalanceAfterElement) {
-
     creditBalanceAfterElement.textContent =
       newTotalBalance.toFixed(2) + " Credits";
   }

@@ -20,21 +20,21 @@
             <div id="cart-total">
              <p>Total:</p>
              <span><%= locals.cart.totalPrice.toFixed(2) %> Credits</span>
-             <% if(locals.isAuth){ %>
-                <form action="/inventory/add" method="post">
-                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>" />
-                    <button class="btn">Confirm Purchase</button>
-                </form>
-                
-             <% }else{%>
+             <div class="spacer"></div>
+             <% if(!locals.isAuth){%>
                 <p id="cart-total-noAuth">Log in to confirm purchase</p>
              <% } %>
             </div>
             <% if(locals.isAuth){ %>
             <div id="cart-total-balance">
-                <%- include("../../shared/includes/inventory/credit-balance",{total:true}) %>   
+                <%- include("../../shared/includes/inventory/credit-balance",{total:true}) %>
+                <form action="/inventory/add" method="post">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>" />
+                    <button id="Confirm-purchase-btn" class="btn">Confirm Purchase</button>
+                </form>
+                </div>   
+                <% } %>
             </div>
-            <% } %>
         </main>
     </body>
 </html>

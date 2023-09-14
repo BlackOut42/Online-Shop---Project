@@ -9,6 +9,7 @@ class Inventory {
   }
 
   async addToInventory(cart) {
+    let responseData;
     const newCredit = this.credit - cart.totalPrice;
     if (newCredit >= 0) {
       for (let i = 0; i < cart.items.length; i++) {
@@ -32,9 +33,12 @@ class Inventory {
       }
       this.credit = newCredit.toFixed(2);
       await this.updateDb();
-      return {inventory:this,sucess:true};
+      responseData = {inventory:this,sucess:true};
+      return responseData;
     } //TODO: add error handling.
-    return {inventory:null,sucess:false};
+    responseData = {inventory:this,sucess:false};
+
+    return responseData;
   }
   async sellItem(productId, quantity) {
     for (let i = 0; i < this.items.length; i++) {

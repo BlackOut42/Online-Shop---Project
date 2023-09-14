@@ -9,14 +9,16 @@ async function buyCart(req, res, next) {
     responseInventoryObject = await customerInventory.addToInventory(cart);
     req.session.inventory = responseInventoryObject.inventory;
     if (responseInventoryObject.sucess) {
-      //   req.session.cart = null; causes problems
-      res.redirect("/inventory");
+        req.session.cart.items = [];
+        req.session.cart.totalQuantity = 0  
+        req.session.cart.totalPrice = 0
+      return res.redirect("/inventory");
     }
   } catch (error) {
     next(error);
     return;
   }
-  res.redirect("/inventory");
+  return res.redirect("/inventory");
 }
 async function getInventory(req, res) {
   const customerInventory = await inventoryUtil(req.session.uid);

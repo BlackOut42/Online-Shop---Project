@@ -78,12 +78,14 @@
 #cart-total #cart-total-noAuth{
   font-size: 1rem;
 }
+
 #cart-total-balance hr{
   height: 1px;
   background-color: var(--color-purple-400);
   border: none;
   width: 100%;
 }
+
 @media (min-width: 48rem) {
   .cart-item {
     flex-direction: row;
@@ -114,6 +116,11 @@
   }
   #cart-total span{
     font-size: 1.5rem;
+  }
+  #Confirm-purchase-btn {
+    width: 17rem;
+    height: 3rem;
+    font-size: 1rem;
   }
 }
 

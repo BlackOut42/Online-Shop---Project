@@ -16,7 +16,7 @@ function initializeCart(req, res, next) {
     );
   }
   res.locals.cart = cart;
-  if (req.session.uid) {
+  if (req.session.inventory) {
     res.locals.credit = req.session.inventory.credit; //adding this for credit in views
   }
   next();

@@ -46,7 +46,7 @@ app.use(authRoutes);
 app.use(productRoutes);
 app.use("/cart",cartRoutes);
 app.use("/inventory",protectRoutesMiddleware,inventoryRoutes);
-app.use("/admin",protectRoutesMiddleware,adminRoutes); //filtering routes that start with /admin 
+app.use(protectRoutesMiddleware,adminRoutes); //filtering routes that start with /admin 
 app.use(notFoundMiddleWare);
 
 app.use(errorHandleMiddleware);//last thing to use by express so we could catch all incoming errors.

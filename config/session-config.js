@@ -3,9 +3,12 @@ const mongodbStore = require("connect-mongodb-session");
 
 function createSessionStore() {
   const MongoDBStore = mongodbStore(expressSession);
-
+  let MongoDbUrl = "mongodb://127.0.0.1:27017";
+  if (process.env.MONGODB_URL) {
+    MongoDbUrl = process.env.MONGODB_URL;
+  }
   const store = new MongoDBStore({
-    uri: "mongodb://127.0.0.1:27017",
+    uri: MongoDbUrl,
     databaseName: "online-shop",
     collection: "sessions",
   });
@@ -25,4 +28,3 @@ function createSessionConfig() {
 }
 
 module.exports = createSessionConfig;
-

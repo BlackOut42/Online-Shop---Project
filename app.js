@@ -3,12 +3,12 @@ const express = require("express");
 const csrf = require("csurf");
 const expressSession = require("express-session");
 
-const addCsrfMiddleware = require("./middleware/csrf-Token");//csrf addition middleware.
-const errorHandleMiddleware = require("./middleware/error-handler");//custom error handling middleware
+const addCsrfMiddleware = require("./middleware/csrf-Token"); //csrf addition middleware.
+const errorHandleMiddleware = require("./middleware/error-handler"); //custom error handling middleware
 const authenticationMiddleware = require("./middleware/check-authentication");
 const protectRoutesMiddleware = require("./middleware/protect-routes");
 const cartMiddleWare = require("./middleware/cart");
-const notFoundMiddleWare =require('./middleware/not-found');
+const notFoundMiddleWare = require("./middleware/not-found");
 const createSessionConfig = require("./config/session-config"); // session config for authentication
 const authRoutes = require("./routes/auth-routes");
 const baseRoutes = require("./routes/base-routes");
@@ -24,32 +24,36 @@ const app = express();
 app.set("view engine", "ejs"); //view engine switch to ejs
 app.set("views", path.join(__dirname, "views")); // setting views path
 
-const port = 3000;
+let port = 3000;
+
+if (process.env.PORT) {
+  port = process.env.PORT;
+}
 
 app.use(express.static("public")); // serving staticly the resources available for public.
-app.use("/products/assets",express.static("product-data"));//serving product related data staticly.
+app.use("/products/assets", express.static("product-data")); //serving product related data staticly.
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());//middlewware made for ajax requests with data attached to them.
+app.use(express.json()); //middlewware made for ajax requests with data attached to them.
 
 const sessionConfig = createSessionConfig();
-app.use(expressSession(sessionConfig));//has to be before usage of csrf(below).
+app.use(expressSession(sessionConfig)); //has to be before usage of csrf(below).
 app.use(csrf()); // has to be executed before redirection to routes(below)
-app.use(addCsrfMiddleware);//Just to distribute generated tokens to all other routes/middlewares. 
+app.use(addCsrfMiddleware); //Just to distribute generated tokens to all other routes/middlewares.
 
-app.use(cartMiddleWare);//created a local Cart item which contains methods 
-                        //unlike the object in the session who contains only the items.
+app.use(cartMiddleWare); //created a local Cart item which contains methods
+//unlike the object in the session who contains only the items.
 
 app.use(authenticationMiddleware);
 
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
-app.use("/cart",cartRoutes);
-app.use("/inventory",protectRoutesMiddleware,inventoryRoutes);
-app.use(protectRoutesMiddleware,adminRoutes); //filtering routes that start with /admin 
+app.use("/cart", cartRoutes);
+app.use("/inventory", protectRoutesMiddleware, inventoryRoutes); //filtering routes that start with /inventory
+app.use(protectRoutesMiddleware, adminRoutes);
 app.use(notFoundMiddleWare);
 
-app.use(errorHandleMiddleware);//last thing to use by express so we could catch all incoming errors.
+app.use(errorHandleMiddleware); //last thing to use by express so we could catch all incoming errors.
 
 db.connectToDatabase()
   .then(function () {

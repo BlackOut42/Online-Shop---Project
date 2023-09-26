@@ -10,6 +10,9 @@
   "keywords": [],
   "author": "Gal Rabinovich",
   "license": "ISC",
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-mongodb-session": "^3.1.1",

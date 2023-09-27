@@ -1,7 +1,10 @@
 footer{
     width: 90%;
     align-items: center;
-    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+
 }
 footer p {
     text-align: center;

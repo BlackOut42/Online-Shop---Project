@@ -1,5 +1,6 @@
 const mongodb = require("mongodb");
 const db = require("../data/database");
+const uploadToImgbb = require("../utilities/imgbb-upload");
 class Product {
   constructor(productData) {
     this.title = productData.title;
@@ -7,9 +8,10 @@ class Product {
     this.price = +productData.price; //+ added to convert string to a number.
     this.description = productData.description;
     this.image = productData.image; //this is just the name of the file not the file itself.
-    this.updateImage();
     if (productData._id) {
       this.id = productData._id.toString();
+      this.imageURL = productData.imageURL;
+      this.imagePath = productData.imagePath;
     }
   }
   async saveProduct() {
@@ -25,6 +27,10 @@ class Product {
       if (!this.image) {
         //So I won't overwrite the existing image in case I don't want a new image to be set.
         delete productData.image;
+        delete productData.imageURL;
+        delete productData.imagePath;
+      } else {
+        await this.updateImage();
       }
       await db
         .getDb()
@@ -34,21 +40,27 @@ class Product {
           {
             $set: {
               ...productData,
+              imageURL: this.imageURL,
             },
           }
         );
     } else {
+      await this.updateImage();
+      productData.imageURL = this.imageURL;
       await db.getDb().collection("products").insertOne(productData);
     }
   }
-  updateImage() {
-    this.imagePath = `product-data/images/${this.image}`;
-    this.imageURL = `/products/assets/images/${this.image}`;
+  async updateImage() {
+    const imagePath = `product-data/images/${this.image}`;
+    const response = await uploadToImgbb(imagePath, this.image);
+    console.log(response);
+    this.imageURL = response.url;
+    console.log(this.imageURL);
   }
   async replaceImage(newImage) {
     this.image = newImage;
-    this.updateImage();
   }
+
   static async findAll() {
     const productArr = await db.getDb().collection("products").find().toArray();
     const mappedProductArr = productArr.map(function (productDoc) {
@@ -81,7 +93,7 @@ class Product {
     return db
       .getDb()
       .collection("products")
-      .deleteOne({ _id: productIdObject });//returns a promise and can fail error handling needed + await.
+      .deleteOne({ _id: productIdObject }); //returns a promise and can fail error handling needed + await.
   }
 }
 module.exports = Product;

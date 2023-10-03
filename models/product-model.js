@@ -53,9 +53,7 @@ class Product {
   async updateImage() {
     const imagePath = `product-data/images/${this.image}`;
     const response = await uploadToImgbb(imagePath, this.image);
-    console.log(response);
     this.imageURL = response.url;
-    console.log(this.imageURL);
   }
   async replaceImage(newImage) {
     this.image = newImage;
